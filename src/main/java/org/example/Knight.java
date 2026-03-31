@@ -27,16 +27,40 @@ public class Knight {
         int[] dx = { 2, 1, -1, -2, -2, -1, 1, 2 };
         int[] dy = { 1, 2, 2, 1, -1, -2, -2, -1 };
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < n; i++) {
             int targetX = this.x + dx[i];
             int targetY = this.y + dy[i];
 
             if (targetX >= 0 && targetX < n && targetY >= 0 && targetY < n) {
                 attackedSquares.add(new int[]{targetX, targetY});
-            }
+          }
+
+//            int bouncedX = applyBounce(targetX, n);
+//            int bouncedY = applyBounce(targetY, n);
+//
+//            attackedSquares.add(new int[]{bouncedX, bouncedY});
         }
 
         return attackedSquares;
+    }
+
+    public List<int[]> calculateBounce(int[][] board) {
+        List<int[]> bounces = new ArrayList<>();
+        int n = board.length;
+
+        int[] dx = { 2, 1, -1, -2, -2, -1, 1, 2 };
+        int[] dy = { 1, 2, 2, 1, -1, -2, -2, -1 };
+
+        for (int i = 0; i < n; i++) {
+            int targetX = this.x + dx[i];
+            int targetY = this.y + dy[i];
+
+            int bounceX = applyBounce(targetX, n);
+            int bounceY = applyBounce(targetY, n);
+
+            bounces.add(new int[]{bounceX, bounceY});
+        }
+        return bounces;
     }
 
     public boolean moveKnight(int[][] board, int newX, int newY) {
@@ -65,7 +89,17 @@ public class Knight {
     }
 
 
+
+
     private int applyBounce(int coordinate, int boardsize){
+        if(coordinate < 0){
+            return Math.abs(coordinate);
+        }
+        if(coordinate >= boardsize){
+            int overflow = coordinate - ( boardsize -1 );
+            return (boardsize - 1) - overflow;
+        }
+
         return coordinate;
     }
     public int  getX() {

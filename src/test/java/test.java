@@ -139,4 +139,40 @@ class test {
         );
 
     }
+
+    @Test
+    void calculateBouncesfromTopLeftCorner(){
+        Board board = new Board(8);
+        int[][] board1 = board.createBoard();
+        Knight knight = new Knight(0, 0);
+
+        List<int[]> attacks = knight.calculateBounce(board1);
+        assertThat(attacks).hasSize(8);
+        assertThat(attacks).containsExactlyInAnyOrder(
+                new int[]{1,2}, new int[]{2,1}, new int[]{1,2}, new int[]{2,1}, new int[]{1,2}, new int[]{2,1}, new int[]{1,2}, new int[]{2,1}
+        );
+    }
+
+    @Test
+    void calculateBouncesfromTopRightCorner(){
+        Board board = new Board(8);
+        int[][] board1 = board.createBoard();
+        Knight knight = new Knight(7, 0);
+
+        List<int[]> attacks = knight.calculateBounce(board1);
+        assertThat(attacks).hasSize(2);
+        assertThat(attacks).containsExactlyInAnyOrder(
+                new int[]{5,1}, new int[]{6,2}, new int[]{5,1}, new int[]{6,2},new int[]{5,1}, new int[]{6,2}, new int[]{5,1}, new int[]{6,2}
+        );
+    }
+
+    @Test
+    void calculateBouncesfromEdge(){
+        Board board = new Board(8);
+        int[][] board1 = board.createBoard();
+        Knight knight = new Knight(0, 4);
+
+        List<int[]> attacks = knight.calculateBounce(board1);
+
+    }
 }
