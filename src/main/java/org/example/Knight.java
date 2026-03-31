@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Knight {
     public int x;
     public int y;
@@ -17,7 +20,10 @@ public class Knight {
         return board;
     }
 
-    public boolean calculateAttack(int[][] board) {
+    public List<int[]> calculateAttack(int[][] board) {
+        List<int[]> attackedSquares = new ArrayList<>();
+        int n = board.length;
+
         int[] dx = { 2, 1, -1, -2, -2, -1, 1, 2 };
         int[] dy = { 1, 2, 2, 1, -1, -2, -2, -1 };
 
@@ -25,13 +31,12 @@ public class Knight {
             int targetX = this.x + dx[i];
             int targetY = this.y + dy[i];
 
-            if (targetX >= 0 && targetX < board.length && targetY >= 0 && targetY < board[0].length){
-                if (board[targetX][targetY] != 0){
-                    return true;
-                }
+            if (targetX >= 0 && targetX < n && targetY >= 0 && targetY < n) {
+                attackedSquares.add(new int[]{targetX, targetY});
             }
         }
-        return false;
+
+        return attackedSquares;
     }
 
     public boolean moveKnight(int[][] board, int newX, int newY) {
@@ -59,6 +64,10 @@ public class Knight {
         return true;
     }
 
+
+    private int applyBounce(int coordinate, int boardsize){
+        return coordinate;
+    }
     public int  getX() {
         return x;
     }
